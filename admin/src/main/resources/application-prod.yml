@@ -1,0 +1,31 @@
+server:
+  port: 5000
+  error:
+    include-stacktrace: NEVER
+
+spring:
+  datasource:
+    hikari:
+      primary:
+        driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+        jdbc-url: jdbc:p6spy:mysql:aws://rubys-prod.cluster-cxt9ffexomdx.ap-northeast-2.rds.amazonaws.com:3306/rubys
+        username: rubys
+        password: rY7V4#h9l31C
+        maximum-pool-size: 5
+      replica:
+        driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+        jdbc-url: jdbc:p6spy:mysql:aws://rubys-prod.cluster-ro-cxt9ffexomdx.ap-northeast-2.rds.amazonaws.com:3306/rubys
+        username: rubys
+        password: rY7V4#h9l31C
+        maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  data:
+    solr:
+      host: http://ec2-13-125-139-197.ap-northeast-2.compute.amazonaws.com:8983/solr
+  elasticsearch:
+    uris:
+      - https://vpc-rubys-prod-55tjqknztlqyh4z6ulku7vhhca.ap-northeast-2.es.amazonaws.com
+    username: rubys
+    password: 7Rw5Hnb(Ejp4cMBj

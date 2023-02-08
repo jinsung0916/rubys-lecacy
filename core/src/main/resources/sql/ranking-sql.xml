@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.benope.apple.domain.ranking.mapper.RankingMapper">
+
+    <resultMap id="FoodRankingResultMap" type="com.benope.apple.domain.ranking.bean.FoodRanking">
+        <id column="ranking_no" property="rankingNo"/>
+        <result column="category_no" property="categoryNo"/>
+        <result column="food_no" property="foodNo"/>
+        <result column="rank_date" property="rankDate"/>
+        <result column="rank_num" property="rankNum"/>
+        <result column="status" property="status"/>
+        <result column="food_ranking_data"
+                property="foodRankingData"
+                typeHandler="com.benope.apple.domain.ranking.mapper.FoodRankingDataTypeHandler"/>
+        <association property="food" columnPrefix="food_">
+            <result column="food_nm" property="foodNm"/>
+            <result column="brand" property="brand"/>
+            <association property="uploadImg" columnPrefix="img_">
+                <result column="img_file_path" property="imgFilePath"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="generateFoodRanking"
+            parameterType="com.benope.apple.domain.ranking.bean.FoodRanking"
+            resultMap="FoodRankingResultMap">
+        /* com.benope.apple.domain.ranking.mapper.RankingMapper.generateFoodRanking */
+        SELECT ${categoryNo}                                                                    AS category_no,
+               f.food_no                                                                        AS food_no,
+               '${rankDate}'                                                                    AS rank_date,
+               CONCAT('{"total_score":', SUM(s.score), ', "score_count":', COUNT(s.score), '}') AS food_ranking_data
+        FROM category c
+                 join category_ranking_condition dtls ON dtls.category_no = c.category_no
+                 LEFT JOIN category p
+                           ON dtls.ranking_condition_type_cd = 'MAIN'
+                               AND p.parent_category_no = dtls.food_category_no
+                               AND p.row_stat_cd != 'D'
+                 JOIN food f
+                      ON ((dtls.ranking_condition_type_cd = 'ALL' AND f.row_stat_cd != 'D')
+                          OR (dtls.ranking_condition_type_cd = 'MAIN' AND f.food_category_no = p.category_no)
+                          OR (dtls.ranking_condition_type_cd = 'SUB' AND f.food_category_no = dtls.food_category_no))
+                          AND f.row_stat_cd != 'D'
+                 JOIN score s ON s.object_no = f.food_no AND s.row_stat_cd != 'D'
+        WHERE c.category_no = ${categoryNo}
+          AND c.category_type_cd = 'RANKING'
+          AND c.row_stat_cd != 'D'
+          AND (s.created_at <![CDATA[<=]]> '${maxDateTime}' OR s.updated_at <![CDATA[<=]]> '${maxDateTime}')
+        GROUP BY f.food_no
+        HAVING COUNT(s.score) <![CDATA[>=]]> ${minScoreCount}
+           AND SUM(s.score) / COUNT(s.score) <![CDATA[>=]]> ${minAverageScore}
+        ORDER BY SUM(s.score) DESC
+        LIMIT 100
+    </select>
+
+</mapper>
+

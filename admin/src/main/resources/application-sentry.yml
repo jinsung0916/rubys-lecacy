@@ -1,0 +1,26 @@
+sentry:
+  exception-resolver-order: -2147483647
+  logging:
+    minimum-event-level: warn
+    minimum-breadcrumb-level: debug
+  send-default-pii: true
+  traces-sample-rate: 1
+  max-request-body-size: ALWAYS
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - "dev"
+sentry:
+  dsn: https://4ade572a27f345ff9f3cf8e5698830fc@sentry.benope.link/3
+  environment: dev
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - "prod"
+sentry:
+  dsn: https://4ade572a27f345ff9f3cf8e5698830fc@sentry.benope.link/3
+  environment: prod

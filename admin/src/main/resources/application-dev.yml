@@ -1,0 +1,29 @@
+server:
+  port: 5000
+
+spring:
+  datasource:
+    hikari:
+      primary:
+        driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+        jdbc-url: jdbc:p6spy:mysql:aws://rubys-staging.cluster-cxt9ffexomdx.ap-northeast-2.rds.amazonaws.com:3306/rubys
+        username: rubys
+        password: 1234
+        maximum-pool-size: 5
+      replica:
+        driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+        jdbc-url: jdbc:p6spy:mysql:aws://rubys-staging.cluster-ro-cxt9ffexomdx.ap-northeast-2.rds.amazonaws.com:3306/rubys
+        username: rubys
+        password: 1234
+        maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  data:
+    solr:
+      host: http://ec2-3-39-103-101.ap-northeast-2.compute.amazonaws.com:8983/solr
+  elasticsearch:
+    uris:
+      - https://vpc-rubys-staging-j4scronigldy57ckup4jedynhm.ap-northeast-2.es.amazonaws.com
+    username: rubys
+    password: RYm95#M4qXSr^zvj

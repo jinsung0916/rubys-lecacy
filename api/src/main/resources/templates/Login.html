@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>Rubys Login</title>
+    <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1, maximum-scale=1.0, minimum-scale=1, user-scalable=0"
+    />
+</head>
+<body>
+<div>
+    <div>
+        <header>
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div>
+                <div class="phrase">다이어트에도 취향이 있다</div>
+                <img th:src="@{/images/rubys.png}" class="rubysIcon" alt="Rubys"/>
+            </div>
+            <div class="circle3"></div>
+        </header>
+
+        <div class="loginForm">
+            <div class="col">
+                <a th:href="@{/oauth2/authorization/google}">
+                    <div class="iconContainer google">
+                        <img
+                                th:src="@{/images/google.png}"
+                                class="colIcon"
+                                alt="google"
+                        />
+                        <div class="snsText">Google로 로그인</div>
+                    </div>
+                </a>
+
+                <a th:href="@{/oauth2/authorization/apple}">
+                    <div class="iconContainer apple">
+                        <img
+                                th:src="@{/images/apple.jpeg}"
+                                class="colIcon appleIcon"
+                                alt="apple"
+                        />
+                        <div class="snsText">Apple로 로그인</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="row">
+                <div class="rowContainer">
+                    <a th:href="@{/oauth2/authorization/naver}">
+                        <img
+                                th:src="@{/images/naver.png}"
+                                class="rowIcon"
+                                alt="naver"
+                        />
+                    </a>
+
+                    <a th:href="@{/oauth2/authorization/kakao}">
+                        <img
+                                th:src="@{/images/kakao.png}"
+                                class="rowIcon"
+                                alt="kakao"
+                        />
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

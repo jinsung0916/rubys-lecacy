@@ -1,0 +1,16 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    hikari:
+      primary:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        jdbc-url: jdbc:log4jdbc:h2:mem:rubys
+        username: sa
+      replica:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        jdbc-url: jdbc:log4jdbc:h2:mem:rubys
+        username: sa
+  autoconfigure:
+    exclude: org.springframework.cloud.aws.autoconfigure

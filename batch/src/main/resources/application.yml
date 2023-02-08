@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: local
+  batch:
+    job:
+      names: ${job.names:NONE}
+  main:
+    web-application-type: none
+  jpa:
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+
+logging:
+  level:
+    jdbc: off
+    jdbc.sqltiming: info
+    jdbc.resultsettable: info

@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: local
+    include:
+      - sentry
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      max-file-size: 100MB
+      max-request-size: 100MB
+  jpa:
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+
+logging:
+  level:
+    root: info
+    com.amazonaws.util.EC2MetadataUtils: error
+    jdbc: off
+    jdbc.sqltiming: info
+    jdbc.resultsettable: info
+
+server:
+  error:
+    include-stacktrace: ALWAYS
+    include-message: ALWAYS
+
+cloud:
+  aws:
+    credentials:
+      accessKey: none
+      secretKey: none
+    stack:
+      auto: false
+    s3:
+      bucket: rubys-apple-public
+      url: https://rubys-apple-public.s3.ap-northeast-2.amazonaws.com/
+    region:
+      static: ap-northeast-2

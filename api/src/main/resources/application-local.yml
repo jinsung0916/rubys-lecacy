@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    hikari:
+      primary:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        jdbc-url: jdbc:log4jdbc:mysql:aws://localhost:13306/rubys
+        username: root
+      replica:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        jdbc-url: jdbc:log4jdbc:mysql:aws://localhost:13306/rubys
+        username: root
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  data:
+    solr:
+      host: http://localhost:8983/solr
+
+jwt:
+  secret: MDUyZmQ2NTA0NWQ3NTY1ZDM4YmMyNDFkNzliOWNkYzAxNDJiNzFmNmUzODVlNzkxOThlNTQ3MWRhYjZmY2I4MjNjOThlYWUxMjZkZWRlOGQwYWU0MDhmMDRlYTY0ZTBiZjYxMjQ1N2NkZDg3YWE1YjE4MjA0ZTgwNzQyMGZlM2U=

@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    hikari:
+      primary:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        jdbc-url: jdbc:log4jdbc:mysql:aws://rubys-staging.cluster-cxt9ffexomdx.ap-northeast-2.rds.amazonaws.com:3306/rubys
+        username: rubys
+        password: 1234
+        maximum-pool-size: 5
+      replica:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        jdbc-url: jdbc:log4jdbc:mysql:aws://rubys-staging.cluster-ro-cxt9ffexomdx.ap-northeast-2.rds.amazonaws.com:3306/rubys
+        username: rubys
+        password: 1234
+        maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  data:
+    solr:
+      host: http://ec2-3-39-103-101.ap-northeast-2.compute.amazonaws.com:8983/solr
+  elasticsearch:
+    uris:
+      - https://vpc-rubys-staging-j4scronigldy57ckup4jedynhm.ap-northeast-2.es.amazonaws.com
+    username: rubys
+    password: RYm95#M4qXSr^zvj

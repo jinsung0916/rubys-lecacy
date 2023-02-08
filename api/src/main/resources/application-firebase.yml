@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile:
+        - "local"
+        - "dev"
+        - "prod"
+firebase:
+  service_account_path: keystore/service-account.json

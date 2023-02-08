@@ -1,0 +1,17 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    hikari:
+      primary:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        jdbc-url: jdbc:log4jdbc:h2:mem:rubys
+        username: sa
+      replica:
+        driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+        jdbc-url: jdbc:log4jdbc:h2:mem:rubys
+        username: sa
+
+jwt:
+  secret: NzAzZDI2YmRmMDc3ZmM4NjljMzQzYTU4NzQ3MTk3MzE3Njc3ODY1MTE3YTAzYjFkYzVhZDY1ZDE5MmZlY2EwMDI5NTVhNWRjNTk3ZDI0ZDAwMmQ2M2Y0Nzc0NTdmYWZmMmZmYTRmY2ZmOTM0ZTU5ZjcxYzM3OWNjNDdkZjc2MQ==

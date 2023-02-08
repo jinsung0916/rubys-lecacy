@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.benope.apple.domain.member.mapper.MemberMapper">
+
+    <resultMap id="MemberResult" type="com.benope.apple.domain.member.bean.Member">
+        <id column="mb_no" property="mbNo" jdbcType="BIGINT"/>
+        <result column="exprt_policy_no" property="expertPolicyNo" jdbcType="BIGINT"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="phone_number_1" property="phoneNumber_1" jdbcType="VARCHAR"/>
+        <result column="phone_number_2" property="phoneNumber_2" jdbcType="VARCHAR"/>
+        <result column="phone_number_3" property="phoneNumber_3" jdbcType="VARCHAR"/>
+        <result column="profile_image_no" property="profileImageNo" jdbcType="BIGINT"/>
+        <result column="gender_cd" property="genderCd" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
+        <result column="profile_text" property="profileText" jdbcType="VARCHAR"/>
+        <result column="account_locked_yn" property="accountLockedYn" jdbcType="VARCHAR"/>
+        <result column="cafe24_id" property="cafe24Id" jdbcType="VARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+        <result column="row_stat_cd" property="rowStatCd" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectQuitMember" resultMap="MemberResult">
+        /* com.benope.apple.domain.member.mapper.MemberMapper.selectQuitMember */
+        SELECT *
+        FROM mb m
+        WHERE m.row_stat_cd = 'D'
+          AND EXISTS(
+                SELECT 1
+                FROM mb_auth auth
+                WHERE auth.mb_no = m.mb_no
+                  AND auth.mb_auth_cd = #{mbAuthCd}
+                  AND auth.identifier = #{identifier}
+            )
+          AND m.quit_date >= #{baseDate}
+        LIMIT 1
+    </select>
+
+</mapper>
+
